@@ -6,9 +6,11 @@ import getBooks from "../Controllers/getBooks.js";
 import getOneBook from "../Controllers/getOneBook.js";
 import updateBook from "../Controllers/updateBook.js";
 import deleteBook from "../Controllers/deleteBooks.js";
+import filterByCategory from "../Controllers/filterByCategory.js";
 
 const bookRoute = express.Router();
 
+bookRoute.get("/filter", filterByCategory);
 bookRoute.post("/upload", isNotExists, uploadBook);
 bookRoute.get("/all-books", getBooks);
 bookRoute.get("/:id", getOneBook);

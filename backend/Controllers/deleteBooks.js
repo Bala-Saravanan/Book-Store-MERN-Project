@@ -1,6 +1,6 @@
 import Book from "../Models/bookModel.js";
 
-const deleteBook = async (req, res) => {
+const deleteBook = async (req, res, next) => {
   try {
     await Book.findByIdAndDelete(req.params.id);
     return res.status(200).json({
@@ -9,10 +9,12 @@ const deleteBook = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: error.message,
-    });
+    // return res.status(500).json({
+    //   success: false,
+    //   message: error.message,
+    // });
+
+    next(error);
   }
 };
 

@@ -2,7 +2,14 @@ import Book from "../Models/bookModel.js";
 
 const getBooks = async (req, res) => {
   try {
-    const books = await Book.find();
+    let { page, limit, sort } = req.query;
+
+    page = parseInt(page) || 1;
+    limit = parseInt(limit) || 10;
+    let skip = (page - 1) * limit;
+    sort = sort || "bookTitle";
+
+    const books = await Book.find().sort(sort).skip(skip).limit(limit);
     if (books.length === 0) {
       return res.status(200).json({
         success: true,
@@ -12,6 +19,8 @@ const getBooks = async (req, res) => {
     }
     return res.status(200).json({
       success: true,
+      page,
+      sortBy: sort,
       result: books.length,
       books,
     });
