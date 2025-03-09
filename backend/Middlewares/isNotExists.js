@@ -1,24 +1,15 @@
 import Book from "../Models/bookModel.js";
+import { asyncErrorHandler } from "../utils/asyncErrorHandler.js";
+import CustomError from "../utils/customError.js";
 
-const isNotExists = async (req, res, next) => {
-  try {
-    const exists = await Book.findOne({
-      bookTitle: req.body.bookTitle,
-    });
-    if (exists) {
-      return res.status(400).json({
-        success: false,
-        message: "Book already exists!",
-      });
-    }
-    next();
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      message: error.message,
-    });
+const isNotExists = asyncErrorHandler(async (req, res, next) => {
+  const exists = await Book.findOne({
+    bookTitle: req.body.bookTitle,
+  });
+  if (exists) {
+    const err = new CustomError("Book already Exists!", 400);
+    next(err);
   }
-};
+});
 
 export default isNotExists;
