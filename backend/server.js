@@ -5,6 +5,7 @@ import connectDB from "./config/connectDB.js";
 import bookRoute from "./Routers/bookRouter.js";
 import globalErrorHandler from "./Controllers/errorController.js";
 import CustomError from "./utils/customError.js";
+import authRouter from "./Routers/authRouter.js";
 
 const app = express();
 dotenv.config();
@@ -19,7 +20,8 @@ app.use(express.json());
 connectDB();
 
 // routers
-app.use("/book", bookRoute);
+app.use("/api/v1/book", bookRoute);
+app.use("/api/v1/users", authRouter);
 
 // send 404 for undefined urls
 app.all("*", (req, res, next) => {

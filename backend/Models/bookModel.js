@@ -5,7 +5,7 @@ const bookSchema = new mongoose.Schema(
     bookTitle: {
       type: String,
       required: [true, "Book Title is required field!"],
-      unique: [true, "Book Title must be unique!"],
+      unique: [true, "Book already Exists!"],
       maxlength: [200, "Book Title length must be less than 200!"],
       trim: true,
       validate: {

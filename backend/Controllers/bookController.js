@@ -73,15 +73,19 @@ export const filterByCategory = asyncErrorHandler(async (req, res, next) => {
 
 export const updateBook = asyncErrorHandler(async (req, res, next) => {
   const update = req.body;
-  await Book.findByIdAndUpdate(req.params.id, update);
-  return res.status(204).json({
+  const book = await Book.findByIdAndUpdate(req.params.id, update);
+  if (!book) {
+    return next(new CustomError("Book Not Found!", 404));
+  }
+  return res.status(200).json({
     success: true,
     message: "Update Successful!",
   });
 });
 
 export const deleteBook = asyncErrorHandler(async (req, res, next) => {
-  await Book.findByIdAndDelete(req.params.id);
+  const book = await Book.findByIdAndDelete(req.params.id);
+  if (!book) return next(new CustomError("Book Not Found!", 404));
   return res.status(200).json({
     success: true,
     message: "Book deleted successfully!",

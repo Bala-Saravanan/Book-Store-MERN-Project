@@ -1,6 +1,5 @@
 import express from "express";
-import isNotExists from "../Middlewares/isNotExists.js";
-import isExists from "../Middlewares/isExists.js";
+
 import {
   filterByCategory,
   uploadBook,
@@ -9,14 +8,15 @@ import {
   updateBook,
   deleteBook,
 } from "../Controllers/bookController.js";
+import { protectedRoutes } from "../Middlewares/authMiddleware.js";
 
 const bookRoute = express.Router();
 
-bookRoute.get("/filter", filterByCategory);
-bookRoute.post("/upload", isNotExists, uploadBook);
-bookRoute.get("/all-books", getBooks);
-bookRoute.get("/:id", getOneBook);
-bookRoute.patch("/:id/update", isExists, updateBook);
-bookRoute.delete("/:id/delete", isExists, deleteBook);
+bookRoute.get("/all-books", protectedRoutes, getBooks);
+bookRoute.get("/filter", protectedRoutes, filterByCategory);
+bookRoute.post("/upload", protectedRoutes, uploadBook);
+bookRoute.get("/:id", protectedRoutes, getOneBook);
+bookRoute.patch("/:id", protectedRoutes, updateBook);
+bookRoute.delete("/:id", protectedRoutes, deleteBook);
 
 export default bookRoute;
