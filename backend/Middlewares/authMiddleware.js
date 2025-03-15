@@ -18,8 +18,8 @@ export const protectedRoutes = asyncErrorHandler(async (req, res, next) => {
     process.env.JWT_SECRET
   );
   // console.log(decodedToken);
-  const user = await User.findById(decodedToken);
-  if (!user) {
+  req.user = await User.findById(decodedToken.id).select("_id");
+  if (!req.user) {
     return next(
       new CustomError("The User with the given token does not exists!", 401)
     );

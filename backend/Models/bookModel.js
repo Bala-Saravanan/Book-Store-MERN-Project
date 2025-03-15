@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 
 const bookSchema = new mongoose.Schema(
   {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
     bookTitle: {
       type: String,
       required: [true, "Book Title is required field!"],
@@ -17,11 +22,11 @@ const bookSchema = new mongoose.Schema(
     },
     authorName: {
       type: String,
-      required: true,
+      required: [true, "Author Name is required!"],
     },
     bookDescription: {
       type: String,
-      required: true,
+      required: [true, "Book Description is required!"],
       trim: true,
     },
     imageUrl: {
@@ -40,7 +45,7 @@ const bookSchema = new mongoose.Schema(
         "Comedy",
         "Productivity",
       ],
-      required: true,
+      required: [true, "Book category is required!"],
     },
   },
   { timestamps: true }

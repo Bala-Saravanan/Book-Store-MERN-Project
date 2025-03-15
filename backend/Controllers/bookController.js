@@ -5,6 +5,7 @@ import CustomError from "../utils/customError.js";
 export const uploadBook = asyncErrorHandler(async (req, res, next) => {
   const book = req.body;
   const newBook = new Book({
+    user: req.user.id,
     ...book,
   });
   await newBook.save();
@@ -23,7 +24,11 @@ export const getBooks = asyncErrorHandler(async (req, res, next) => {
   let skip = (page - 1) * limit;
   sort = sort || "bookTitle";
 
-  const books = await Book.find().sort(sort).skip(skip).limit(limit);
+  const books = await Book.find()
+    .sort(sort)
+    .skip(skip)
+    .limit(limit)
+    .populate("user", "name email");
   if (books.length === 0) {
     const error = new CustomError("No Books currently Exists!", 404);
     return next(error);
