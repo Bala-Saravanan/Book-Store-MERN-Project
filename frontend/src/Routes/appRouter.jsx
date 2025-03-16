@@ -15,11 +15,11 @@ const appRouter = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/about",
+        path: "/my-books",
         element: <About />,
       },
       {
-        path: "/shop",
+        path: "/favourites",
         element: <Shop />,
       },
       {
