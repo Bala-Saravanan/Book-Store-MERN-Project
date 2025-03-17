@@ -1,4 +1,5 @@
 import Book from "../Models/bookModel.js";
+import Favourites from "../Models/favouriteBookModel.js";
 import { asyncErrorHandler } from "../utils/asyncErrorHandler.js";
 import CustomError from "../utils/customError.js";
 
@@ -96,3 +97,44 @@ export const deleteBook = asyncErrorHandler(async (req, res, next) => {
     message: "Book deleted successfully!",
   });
 });
+
+export const addToFavourites = asyncErrorHandler(async (req, res, next) => {
+  const favourite = await Book.findById(req.params.id);
+  if (!favourite) return next(new CustomError("Book Not Found!", 404));
+  const exists = await Favourites.findOne({ book_id: req.params.id });
+  if (exists) {
+    return next(new CustomError("Book already Added to Favourites!", 400));
+  }
+  const favouriteBook = new Favourites({
+    book_id: favourite._id,
+    user_id: favourite.user,
+  });
+  await favouriteBook.save();
+  return res.status(200).json({
+    success: true,
+    message: "Book added to Favourites!",
+    book: favourite,
+  });
+});
+
+export const getAllFavourites = asyncErrorHandler(async (req, res, next) => {
+  const favourites = await Favourites.find().populate("book_id");
+  if (favourites.length === 0)
+    return next(new CustomError("No Books in Favourites!"));
+  return res.status(200).json({
+    success: true,
+    result: favourites.length,
+    favourites,
+  });
+});
+
+export const removeFromFavourites = asyncErrorHandler(
+  async (req, res, next) => {
+    const book = await Favourites.findByIdAndDelete(req.params.id);
+    if (!book) return next(new CustomError("Book Not Found!", 404));
+    return res.status(200).json({
+      success: true,
+      message: "Book removed from Favourites!",
+    });
+  }
+);

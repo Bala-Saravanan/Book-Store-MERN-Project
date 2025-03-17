@@ -3,7 +3,7 @@ import Logo from "../UI/Logo";
 
 const Navbar = ({ toggleSideBar, setToggleSideBar }) => {
   return (
-    <div className="flex w-full border-b z-10">
+    <div className="flex w-full fixed border-b z-10">
       <div className="bg-bg w-96">
         <Logo />
       </div>

@@ -18,3 +18,5 @@ export const socialIcons = [
   { Icon: FaInstagram, path: "https://www.instagram.com" },
   { Icon: FaSquareXTwitter, path: "https://www.x.com" },
 ];
+
+export const BOOK_API_END_POINT = "http://localhost:8000/api/v1/book";

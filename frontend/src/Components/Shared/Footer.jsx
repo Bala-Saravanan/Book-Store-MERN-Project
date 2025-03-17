@@ -5,8 +5,8 @@ import Logo from "../UI/Logo";
 const Footer = () => {
   return (
     <>
-      <div className="flex justify-between bg-bg absolute bottom-10 left-0 right-0">
-        <div className="">
+      <div className="flex justify-between bg-bg z-50">
+        <div className="z-50 border-t ms-2">
           {/* company logo */}
           <Logo />
         </div>
@@ -38,7 +38,7 @@ const Footer = () => {
           </ul>
         </div>
       </div>
-      <p className="text-center bg-secondary text-bg p-2 mt-5 absolute bottom-0 left-0 right-0">
+      <p className="text-center bg-secondary text-bg p-2 z-auto">
         &copy; All Rights are Reserved.
       </p>
     </>

@@ -6,7 +6,7 @@ const Sidebar = ({ toggleSideBar }) => {
   return (
     <>
       {toggleSideBar ? (
-        <div className="w-72 bg-bg fixed h-full border-r">
+        <div className="w-72 bg-bg fixed h-full border-r z-10">
           {/* Navigation */}
           <ul className="mt-24 text-secondary text-xl font-bold">
             {navItems.map(({ Icon, link, path }, idx) => (
@@ -31,7 +31,7 @@ const Sidebar = ({ toggleSideBar }) => {
                   to={path}
                   className="mb-2 mx-2 rounded flex items-center justify-center gap-3 p-5 hover:bg-primary"
                 >
-                  <Icon className="w-6 h-6 text-secondary z-10"></Icon>
+                  <Icon className="w-6 h-6 text-secondary z-50"></Icon>
                 </Link>
               ))}
             </ul>
