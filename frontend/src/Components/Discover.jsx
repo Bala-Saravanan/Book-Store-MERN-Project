@@ -4,6 +4,7 @@ import Book from "./Book";
 import { toast } from "sonner";
 import { BOOK_API_END_POINT } from "../Constants/constants";
 import axios from "axios";
+import Hero from "./Hero";
 
 const Discover = () => {
   const clickHandler = async (id) => {
@@ -28,7 +29,8 @@ const Discover = () => {
   const { data: books, refetch } = useGetAllBooks();
   return (
     <>
-      <div className="relative ms-28 mt-20">
+      <Hero />
+      <div className="relative ms-28">
         <div className="">
           {books && books.length > 0 ? (
             <ul className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
