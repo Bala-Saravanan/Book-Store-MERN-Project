@@ -20,3 +20,4 @@ export const socialIcons = [
 ];
 
 export const BOOK_API_END_POINT = "http://localhost:8000/api/v1/book";
+export const USER_API_END_POINT = "http://localhost:8000/api/v1/users";

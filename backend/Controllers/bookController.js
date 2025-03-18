@@ -101,13 +101,16 @@ export const deleteBook = asyncErrorHandler(async (req, res, next) => {
 export const addToFavourites = asyncErrorHandler(async (req, res, next) => {
   const favourite = await Book.findById(req.params.id);
   if (!favourite) return next(new CustomError("Book Not Found!", 404));
-  const exists = await Favourites.findOne({ book_id: req.params.id });
+  const exists = await Favourites.findOne({
+    book_id: req.params.id,
+    user_id: req.user,
+  });
   if (exists) {
     return next(new CustomError("Book already Added to Favourites!", 400));
   }
   const favouriteBook = new Favourites({
     book_id: favourite._id,
-    user_id: favourite.user,
+    user_id: req.user,
   });
   await favouriteBook.save();
   return res.status(200).json({
@@ -118,7 +121,11 @@ export const addToFavourites = asyncErrorHandler(async (req, res, next) => {
 });
 
 export const getAllFavourites = asyncErrorHandler(async (req, res, next) => {
-  const favourites = await Favourites.find().populate("book_id");
+  const userId = req.user;
+  // console.log("userId " + userId);
+  const favourites = await Favourites.find({ user_id: userId }).populate(
+    "book_id"
+  );
   if (favourites.length === 0)
     return next(new CustomError("No Books in Favourites!"));
   return res.status(200).json({

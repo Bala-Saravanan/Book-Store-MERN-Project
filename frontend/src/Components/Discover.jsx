@@ -7,14 +7,19 @@ import axios from "axios";
 import Hero from "./Hero";
 
 const Discover = () => {
-  const clickHandler = async (id) => {
+  const handleAddToFavourite = async (id) => {
+    const token = localStorage.getItem("token");
+    console.log("token from discover: " + token);
+    if (!token) {
+      toast.error("You'r not Logged In!");
+    }
     try {
       const response = await axios.post(
         `${BOOK_API_END_POINT}/${id}/add-favourite`,
+        {},
         {
           headers: {
-            Authorization:
-              "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3Y2VkNDI1YTc5N2EwOWY5MmRlMjJhZCIsImlhdCI6MTc0MjIyMTg0MywiZXhwIjoxNzQ0ODEzODQzfQ.1ZdZ2W87_CQ5UPxxU-lBSik_vLWvEM4Prr9e2ptD1dA",
+            Authorization: `bearer ${token}`,
           },
         }
       );
@@ -37,7 +42,7 @@ const Discover = () => {
               {books.map(
                 ({ _id, bookTitle, authorName, imageUrl, category }, idx) => (
                   <li key={idx} className="relative">
-                    <button onClick={() => clickHandler(_id)}>
+                    <button onClick={() => handleAddToFavourite(_id)}>
                       <FaHeart className="text-xl absolute right-10 top-15 z-5 cursor-pointer" />
                     </button>
                     <Book

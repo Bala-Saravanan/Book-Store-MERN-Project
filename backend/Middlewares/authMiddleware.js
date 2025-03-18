@@ -6,6 +6,7 @@ import User from "../Models/userModel.js";
 
 export const protectedRoutes = asyncErrorHandler(async (req, res, next) => {
   const testToken = req.headers.authorization;
+  // console.log("token: " + testToken);
   let token;
   if (testToken && testToken.startsWith("bearer")) {
     token = testToken.split(" ")[1];
@@ -17,8 +18,12 @@ export const protectedRoutes = asyncErrorHandler(async (req, res, next) => {
     token,
     process.env.JWT_SECRET
   );
-  // console.log(decodedToken);
-  req.user = await User.findById(decodedToken.id).select("_id");
+  console.log("decoded token: " + decodedToken);
+  const user = await User.findById(decodedToken.id);
+  req.user = user.id;
+
+  // console.log("User " + user);
+  // console.log("User Id: " + req.user);
   if (!req.user) {
     return next(
       new CustomError("The User with the given token does not exists!", 401)

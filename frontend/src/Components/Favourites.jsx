@@ -7,14 +7,18 @@ import { toast } from "sonner";
 
 const Favourites = () => {
   const { data: favourites, refetch } = useGetAllFavourites();
+  // console.log(favourites);
   const deleteHandler = async (id) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("You'r not Logged In!");
+    }
     try {
       const response = await axios.delete(
         `${BOOK_API_END_POINT}/favourites/${id}`,
         {
           headers: {
-            Authorization:
-              "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3Y2VkNDI1YTc5N2EwOWY5MmRlMjJhZCIsImlhdCI6MTc0MjIyMjgzNiwiZXhwIjoxNzQ0ODE0ODM2fQ.4ONqoi9NfYOJG4RtGF2LWyiGikGHTfbfsNh_h86oXE4",
+            Authorization: `bearer ${token}`,
           },
         }
       );
@@ -54,7 +58,9 @@ const Favourites = () => {
           </ul>
         ) : (
           <>
-            <p>No Books on Your Favourites!</p>
+            <p className="ms-28 mt-24 text-2xl">
+              Oops!... No Books on Your Favourites!
+            </p>
           </>
         )}
       </div>
