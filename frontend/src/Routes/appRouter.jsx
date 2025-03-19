@@ -1,11 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import About from "../Components/About";
+import MyBooks from "../Components/MyBooks";
 import Blog from "../Components/Blog";
 import Discover from "../Components/Discover";
 import Favourites from "../Components/Favourites";
 import Register from "../Components/Auth/Register";
 import Login from "../Components/Auth/Login";
+import PostBook from "../Components/PostBook";
 
 const appRouter = createBrowserRouter([
   {
@@ -18,7 +19,7 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/my-books",
-        element: <About />,
+        element: <MyBooks />,
       },
       {
         path: "/favourites",
@@ -27,6 +28,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/blog",
         element: <Blog />,
+      },
+      {
+        path: "/upload-book",
+        element: <PostBook />,
       },
     ],
   },

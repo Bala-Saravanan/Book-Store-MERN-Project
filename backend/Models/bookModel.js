@@ -37,6 +37,7 @@ const bookSchema = new mongoose.Schema(
       type: String,
       enum: [
         "Fiction",
+        "Fantasy",
         "Sci-Fi",
         "Action",
         "Adventure",
@@ -44,6 +45,7 @@ const bookSchema = new mongoose.Schema(
         "Horror",
         "Comedy",
         "Productivity",
+        "Dystopian",
       ],
       required: [true, "Book category is required!"],
     },

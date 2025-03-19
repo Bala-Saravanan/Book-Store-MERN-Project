@@ -6,7 +6,7 @@ import CustomError from "../utils/customError.js";
 export const uploadBook = asyncErrorHandler(async (req, res, next) => {
   const book = req.body;
   const newBook = new Book({
-    user: req.user.id,
+    user: req.user,
     ...book,
   });
   await newBook.save();
@@ -145,3 +145,23 @@ export const removeFromFavourites = asyncErrorHandler(
     });
   }
 );
+
+export const getUserBooks = asyncErrorHandler(async (req, res, next) => {
+  let { page, limit, sort } = req.query;
+
+  page = parseInt(page) || 1;
+  limit = parseInt(limit) || 10;
+  let skip = (page - 1) * limit;
+  sort = sort || "bookTitle";
+  const myBooks = await Book.find({ user: req.user })
+    .sort(sort)
+    .skip(skip)
+    .limit(limit);
+  if (!myBooks)
+    return next(new CustomError("You did not have any books yet!", 400));
+  return res.status(200).json({
+    success: true,
+    result: myBooks.length,
+    books: myBooks,
+  });
+});
