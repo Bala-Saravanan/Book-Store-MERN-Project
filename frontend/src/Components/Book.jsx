@@ -13,7 +13,7 @@ const Book = ({ _id, bookTitle, authorName, imageUrl, category }) => {
         <div className="mx-5">
           {/* book description */}
 
-          <h1 className="text-3xl font-bold my-5 text-secondary w-[200px]">
+          <h1 className="text-3xl font-bold my-5 text-secondary w-[200px] line-clamp-2">
             {bookTitle}
           </h1>
 

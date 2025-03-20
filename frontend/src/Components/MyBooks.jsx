@@ -1,16 +1,27 @@
 import { useNavigate } from "react-router-dom";
 import useGetAllUserBooks from "../Hooks/useGetAllUserBooks";
 import { Button } from "./UI/Button";
+import { FaHeart } from "react-icons/fa";
+import Book from "./Book";
 
 const MyBooks = () => {
   const navigate = useNavigate();
+  const { data: myBooks, refetch } = useGetAllUserBooks();
   const uploadBookHandler = () => {
     navigate("/upload-book");
+    refetch();
   };
-  const { data: myBooks, refetch } = useGetAllUserBooks();
   return (
     <div>
-      <div>
+      <div className="ms-28 mt-24">
+        <div className="flex justify-center gap-10 m-5">
+          <p className="text-center text-2xl text-secondary">
+            A List of Your Books Appear Here
+          </p>
+          <Button className="cursor-pointer" onClick={uploadBookHandler}>
+            Upload Book
+          </Button>
+        </div>
         {myBooks && myBooks.length > 0 ? (
           <ul className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
             {myBooks.map(
@@ -37,9 +48,6 @@ const MyBooks = () => {
             </p>
           </>
         )}
-        <div className="ms-28 mt-24 cursor-pointer">
-          <Button onClick={uploadBookHandler}>Upload Book</Button>
-        </div>
       </div>
     </div>
   );

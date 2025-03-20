@@ -34,6 +34,9 @@ const Favourites = () => {
   return (
     <>
       <div className="-z-10 ms-28 mt-15">
+        <p className="ms-28 mt-24 text-center text-2xl text-secondary">
+          A List of your favourite books appear here
+        </p>
         {favourites && favourites.length > 0 ? (
           <ul className="grid grid-cols-3">
             {favourites.map(
