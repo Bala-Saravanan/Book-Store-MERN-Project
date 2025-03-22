@@ -29,6 +29,17 @@ const bookSchema = new mongoose.Schema(
       required: [true, "Book Description is required!"],
       trim: true,
     },
+    aboutBook: {
+      type: String,
+      required: [true, "About Section is required!"],
+      trim: true,
+      validate: {
+        validator: function (value) {
+          return value.trim().split(/\s+/).length > 100;
+        },
+        message: "About must be more than 100 words!",
+      },
+    },
     imageUrl: {
       type: String,
       required: true,

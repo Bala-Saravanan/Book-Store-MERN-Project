@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import useGetAllUserBooks from "../Hooks/useGetAllUserBooks";
 import { Button } from "./UI/Button";
 import { FaHeart } from "react-icons/fa";
-import Book from "./Book";
+import Books from "./Books";
 
 const MyBooks = () => {
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ const MyBooks = () => {
                   <button onClick={() => handleAddToFavourite(_id)}>
                     <FaHeart className="text-xl absolute right-10 top-15 z-5 cursor-pointer" />
                   </button>
-                  <Book
+                  <Books
                     _id={_id}
                     bookTitle={bookTitle}
                     authorName={authorName}

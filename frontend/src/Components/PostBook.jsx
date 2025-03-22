@@ -12,6 +12,7 @@ const PostBook = () => {
     authorName: "",
     category: "",
     bookDescription: "",
+    aboutBook: "",
     imageUrl: "",
   });
 
@@ -88,6 +89,16 @@ const PostBook = () => {
               value={bookInput.bookDescription}
               onChange={changeHandler}
               placeholder="Enter Book Description..."
+            />
+          </div>
+          <div>
+            <Label>About Book: </Label>
+            <Input
+              type="text"
+              name="aboutBook"
+              value={bookInput.aboutBook}
+              onChange={changeHandler}
+              placeholder="Enter About Book..."
             />
           </div>
           <div>

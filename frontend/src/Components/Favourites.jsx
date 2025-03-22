@@ -1,9 +1,9 @@
 import { MdDelete } from "react-icons/md";
 import useGetAllFavourites from "../Hooks/useGetAllFavourites";
-import Book from "./Book";
 import axios from "axios";
 import { BOOK_API_END_POINT } from "../Constants/constants";
 import { toast } from "sonner";
+import Books from "./Books";
 
 const Favourites = () => {
   const { data: favourites, refetch } = useGetAllFavourites();
@@ -48,7 +48,7 @@ const Favourites = () => {
                   <button onClick={() => deleteHandler(_id)}>
                     <MdDelete className="z-5 absolute text-xl right-10 top-15 cursor-pointer" />
                   </button>
-                  <Book
+                  <Books
                     _id={_id}
                     bookTitle={bookTitle}
                     authorName={authorName}
