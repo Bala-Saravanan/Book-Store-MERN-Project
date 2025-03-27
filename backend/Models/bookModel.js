@@ -60,6 +60,21 @@ const bookSchema = new mongoose.Schema(
       ],
       required: [true, "Book category is required!"],
     },
+    ISBN: {
+      type: String,
+      required: true,
+      unique: true,
+      validate: {
+        validator: function (isbn) {
+          const cleanISBN = isbn.replace(/-/g, "");
+          return /^(97[89])?\d{9}(\d|X)$/.test(cleanISBN);
+        },
+        message: "The provided ISBN is not Valid!",
+      },
+    },
+    publisher: String,
+    publishedDate: String,
+    pageCount: Number,
   },
   { timestamps: true }
 );

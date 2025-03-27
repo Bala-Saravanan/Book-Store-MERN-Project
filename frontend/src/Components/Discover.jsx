@@ -5,12 +5,12 @@ import { BOOK_API_END_POINT } from "../Constants/constants";
 import axios from "axios";
 import Hero from "./Hero";
 import Books from "./Books";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { BookContext } from "./BookProvider";
 import { useNavigate } from "react-router-dom";
 
 const Discover = () => {
-  const { bookData, setBookData } = useContext(BookContext);
+  const { setBookData } = useContext(BookContext);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const handleAddToFavourite = async (id) => {
@@ -57,7 +57,15 @@ const Discover = () => {
       console.error(error);
     }
   };
-  const { data: books, refetch } = useGetAllBooks();
+
+  const {
+    data: books,
+    refetch,
+    currentPage,
+    handlePageChange,
+    totalPages,
+  } = useGetAllBooks();
+
   return (
     <>
       <Hero />
@@ -90,6 +98,23 @@ const Discover = () => {
           ) : (
             <></>
           )}
+          <div className="flex justify-center items-center gap-5 text-lg my-4">
+            <button
+              className="border-2 border-primary rounded-lg p-3 cursor-pointer hover:bg-primary"
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage <= 1}
+            >
+              Prev
+            </button>
+            <span>{currentPage}</span>
+            <button
+              className="border-2 border-primary rounded-lg p-3 cursor-pointer hover:bg-primary"
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage > totalPages - 1}
+            >
+              Next
+            </button>
+          </div>
         </div>
       </div>
     </>

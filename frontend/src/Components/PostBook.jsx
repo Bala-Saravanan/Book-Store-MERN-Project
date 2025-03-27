@@ -14,6 +14,10 @@ const PostBook = () => {
     bookDescription: "",
     aboutBook: "",
     imageUrl: "",
+    ISBN: "",
+    publisher: "",
+    publishedDate: "",
+    pageCount: 0,
   });
 
   const changeHandler = (event) => {
@@ -47,70 +51,115 @@ const PostBook = () => {
   };
   return (
     <div className="ms-28 mt-24">
-      <div className=" w-[500px] bg-white shadow-2xl rounded-2xl p-10">
+      <div className=" w-1/2 bg-white shadow-2xl rounded-2xl p-10">
         <p className="text-center text-2xl font-bold mb-4">Upload a Book</p>
 
-        <div className="flex flex-col gap-5">
-          <div>
-            <Label>Book Title: </Label>
-            <Input
-              type="text"
-              name="bookTitle"
-              value={bookInput.bookTitle}
-              onChange={changeHandler}
-              placeholder="Enter Book Title..."
-            />
+        <div className="flex justify-evenly gap-10">
+          <div className="flex flex-col gap-5 w-1/2">
+            <div>
+              <Label>Book Title: </Label>
+              <Input
+                type="text"
+                name="bookTitle"
+                value={bookInput.bookTitle}
+                onChange={changeHandler}
+                placeholder="Enter Book Title..."
+              />
+            </div>
+            <div>
+              <Label>Author Name: </Label>
+              <Input
+                type="text"
+                name="authorName"
+                value={bookInput.authorName}
+                onChange={changeHandler}
+                placeholder="Enter Author Name..."
+              />
+            </div>
+            <div>
+              <Label>Category </Label>
+              <Input
+                type="text"
+                name="category"
+                value={bookInput.category}
+                onChange={changeHandler}
+                placeholder="Enter category..."
+              />
+            </div>
+            <div>
+              <Label>Description: </Label>
+              <Input
+                type="text"
+                name="bookDescription"
+                value={bookInput.bookDescription}
+                onChange={changeHandler}
+                placeholder="Enter Book Description..."
+              />
+            </div>
+            <div>
+              <Label>About Book: </Label>
+              <Input
+                type="text"
+                name="aboutBook"
+                value={bookInput.aboutBook}
+                onChange={changeHandler}
+                placeholder="Enter About Book..."
+              />
+            </div>
           </div>
-          <div>
-            <Label>Author Name: </Label>
-            <Input
-              type="text"
-              name="authorName"
-              value={bookInput.authorName}
-              onChange={changeHandler}
-              placeholder="Enter Author Name..."
-            />
+          <div className="flex flex-col gap-5 w-1/2">
+            <div>
+              <Label>Image URL: </Label>
+              <Input
+                type="url"
+                name="imageUrl"
+                value={bookInput.imageUrl}
+                onChange={changeHandler}
+                placeholder="Enter Book Image URL..."
+              />
+            </div>
+            <div>
+              <Label>ISBN Code: </Label>
+              <Input
+                type="text"
+                name="ISBN"
+                value={bookInput.ISBN}
+                onChange={changeHandler}
+                placeholder="Enter Book ISBN..."
+              />
+            </div>
+            <div>
+              <Label>Publisher: </Label>
+              <Input
+                type="text"
+                name="publisher"
+                value={bookInput.publisher}
+                onChange={changeHandler}
+                placeholder="Enter Book Publisher..."
+              />
+            </div>
+            <div>
+              <Label>Publised Date: </Label>
+              <Input
+                type="text"
+                name="publishedDate"
+                value={bookInput.publishedDate}
+                onChange={changeHandler}
+                placeholder="Enter Book Publised Date..."
+              />
+            </div>
+            <div>
+              <Label>Number of Pages: </Label>
+              <Input
+                type="number"
+                name="pageCount"
+                value={bookInput.pageCount}
+                onChange={changeHandler}
+                placeholder="Enter Number of Pages..."
+              />
+            </div>
           </div>
-          <div>
-            <Label>Category </Label>
-            <Input
-              type="text"
-              name="category"
-              value={bookInput.category}
-              onChange={changeHandler}
-              placeholder="Enter category..."
-            />
-          </div>
-          <div>
-            <Label>Description: </Label>
-            <Input
-              type="text"
-              name="bookDescription"
-              value={bookInput.bookDescription}
-              onChange={changeHandler}
-              placeholder="Enter Book Description..."
-            />
-          </div>
-          <div>
-            <Label>About Book: </Label>
-            <Input
-              type="text"
-              name="aboutBook"
-              value={bookInput.aboutBook}
-              onChange={changeHandler}
-              placeholder="Enter About Book..."
-            />
-          </div>
-          <div>
-            <Label>Image URL: </Label>
-            <Input
-              type="url"
-              name="imageUrl"
-              value={bookInput.imageUrl}
-              onChange={changeHandler}
-              placeholder="Enter Book Image URL..."
-            />
-          </div>
+          {/* --------------------------- */}
         </div>
 
         <div className="flex justify-center mt-7">

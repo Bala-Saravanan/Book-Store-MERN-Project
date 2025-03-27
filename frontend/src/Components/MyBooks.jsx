@@ -3,14 +3,65 @@ import useGetAllUserBooks from "../Hooks/useGetAllUserBooks";
 import { Button } from "./UI/Button";
 import { FaHeart } from "react-icons/fa";
 import Books from "./Books";
+import axios from "axios";
+import { BOOK_API_END_POINT } from "../Constants/constants";
+import { useContext } from "react";
+import { BookContext } from "./BookProvider";
+import { toast } from "sonner";
 
 const MyBooks = () => {
+  const { setBookData } = useContext(BookContext);
   const navigate = useNavigate();
   const { data: myBooks, refetch } = useGetAllUserBooks();
   const uploadBookHandler = () => {
     navigate("/upload-book");
     refetch();
   };
+  const token = localStorage.getItem("token");
+  const handleBookClick = async (id) => {
+    try {
+      // console.log(token);
+      const response = await axios.get(`${BOOK_API_END_POINT}/${id}`, {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      });
+      if (response.data.success) {
+        const data = response.data.book;
+        // console.log(data);
+        // console.log(bookData);
+        setBookData(data);
+        // console.log(bookData);
+        navigate("/book");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const handleAddToFavourite = async (id) => {
+    // console.log("token from discover: " + token);
+    if (!token) {
+      toast.error("You'r not Logged In!");
+    }
+    try {
+      const response = await axios.post(
+        `${BOOK_API_END_POINT}/${id}/add-favourite`,
+        {},
+        {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        }
+      );
+      if (response.data.success) {
+        toast.success(response.data.message);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error.response.data.message);
+    }
+  };
+
   return (
     <div>
       <div className="ms-28 mt-24">
@@ -30,13 +81,18 @@ const MyBooks = () => {
                   <button onClick={() => handleAddToFavourite(_id)}>
                     <FaHeart className="text-xl absolute right-10 top-15 z-5 cursor-pointer" />
                   </button>
-                  <Books
-                    _id={_id}
-                    bookTitle={bookTitle}
-                    authorName={authorName}
-                    imageUrl={imageUrl}
-                    category={category}
-                  />
+                  <div
+                    className="cursor-pointer"
+                    onClick={() => handleBookClick(_id)}
+                  >
+                    <Books
+                      _id={_id}
+                      bookTitle={bookTitle}
+                      authorName={authorName}
+                      imageUrl={imageUrl}
+                      category={category}
+                    />
+                  </div>
                 </li>
               )
             )}

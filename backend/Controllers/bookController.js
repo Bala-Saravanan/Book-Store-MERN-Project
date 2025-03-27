@@ -21,7 +21,7 @@ export const getBooks = asyncErrorHandler(async (req, res, next) => {
   let { page, limit, sort } = req.query;
 
   page = parseInt(page) || 1;
-  limit = parseInt(limit) || 10;
+  limit = parseInt(limit) || 9;
   let skip = (page - 1) * limit;
   sort = sort || "bookTitle";
 
@@ -34,8 +34,10 @@ export const getBooks = asyncErrorHandler(async (req, res, next) => {
     const error = new CustomError("No Books currently Exists!", 404);
     return next(error);
   }
+  const total = await Book.countDocuments();
   return res.status(200).json({
     success: true,
+    total,
     page,
     sortBy: sort,
     result: books.length,
@@ -150,7 +152,7 @@ export const getUserBooks = asyncErrorHandler(async (req, res, next) => {
   let { page, limit, sort } = req.query;
 
   page = parseInt(page) || 1;
-  limit = parseInt(limit) || 10;
+  limit = parseInt(limit) || 9;
   let skip = (page - 1) * limit;
   sort = sort || "bookTitle";
   const myBooks = await Book.find({ user: req.user })

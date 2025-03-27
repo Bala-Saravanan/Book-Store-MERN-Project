@@ -10,7 +10,7 @@ export const navItems = [
   { Icon: FaEye, link: "Discover", path: "/" },
   { Icon: SiBookstack, link: "My Books", path: "/my-books" },
   { Icon: FaHeart, link: "Favorites", path: "/favourites" },
-  { Icon: FaBlog, link: "Blog", path: "/blog" },
+  // { Icon: FaBlog, link: "Blog", path: "/blog" },
 ];
 
 export const socialIcons = [
